@@ -79,7 +79,7 @@ int GetIndicatorHandle(string Indicator, string CurrentSymbol, ENUM_TIMEFRAMES C
    ArrayResize(IndicatorArray,NumberOfParameters);                   //Resize array to number of paramentres
    //Print result
    for(int n=0; n < NumberOfParameters; n++)
-      IndicatorDetails = IndicatorDetails + n + ") " + IndicatorArray[n] + " ";
+      IndicatorDetails = IndicatorDetails + IntegerToString(n) + ") " + IndicatorArray[n] + " ";
    Print("EA will process indicator: ", IndicatorDetails, " with ", NumberOfParameters, " parameters for symbol ", CurrentSymbol);
 
 //---CHECK FOR NA INDICATOR
@@ -168,7 +168,7 @@ int GetIndicatorHandle(string Indicator, string CurrentSymbol, ENUM_TIMEFRAMES C
    if(IndicatorArray[0] == "RSI")
    {
       //Get indicator handle
-      Handle = iRSI(CurrentSymbol,CurrentPeriod,IndicatorArray[2],PRICE_CLOSE);
+      Handle = iRSI(CurrentSymbol,CurrentPeriod,StringToInteger(IndicatorArray[2]),PRICE_CLOSE);
       //Error handling
       if(Handle == INVALID_HANDLE)
          MessageBox("Failed to create handle for " + Indicator + " indicator for " + CurrentSymbol + ". Error Code " + IntegerToString(GetLastError()));
@@ -183,7 +183,7 @@ int GetIndicatorHandle(string Indicator, string CurrentSymbol, ENUM_TIMEFRAMES C
    if(IndicatorArray[0] == "Bb")
    {
       //Get indicator handle
-      Handle = iBands(CurrentSymbol,CurrentPeriod,IndicatorArray[2],0,IndicatorArray[3],PRICE_CLOSE);
+      Handle = iBands(CurrentSymbol,CurrentPeriod,StringToInteger(IndicatorArray[2]),0,StringToInteger(IndicatorArray[3]),PRICE_CLOSE);
       //Error handling
       if(Handle == INVALID_HANDLE)
          MessageBox("Failed to create handle for " + Indicator + " indicator for " + CurrentSymbol + ". Error Code " + IntegerToString(GetLastError()));
@@ -362,7 +362,7 @@ string GetIndicatorTrigger(string Indicator, int IndicatorHandle, string Current
       double  BufferBbUpper[];
       double  BufferBbMid[];
       double  BufferBbLower[];
-      int     BbLength    = IndicatorArray[4];
+      int     BbLength    = StringToInteger(IndicatorArray[4]);
       int     ArrayLength = BbLength +2; //add 2 for array length to factor in start candle and new candle
       //Define indicator line(s), from not confirmed candle 0, for n candles, and store results. NOTE:[start n,...,prior,current,new] INDEX: [0,...,n-3,n-2,n-1]
       //Eg. For 3 candle closes, add 2 to the buffer array to factor in start candle and new candle either side - [Start0,Candle1,Candle2,Candle3,new] INDEX: [0,1,2,3,4]
@@ -604,7 +604,7 @@ string GetIndicatorTrigger(string Indicator, int IndicatorHandle, string Current
       //Set symbol and indicator buffers
       double  BufferDonUpper[];
       double  BufferDonLower[];
-      int     DonLength = IndicatorArray[1];
+      int     DonLength = StringToInteger(IndicatorArray[1]);
       //Define indicator line(s), from not confirmed candle 0, for n candles, and store results. NOTE:[start n,...,prior,current,new] INDEX: [0,...,n-3,n-2,n-1]
       bool    FillDonUpper   = CopyBuffer(IndicatorHandle,0,0,DonLength,BufferDonUpper);
       bool    FillDonLower   = CopyBuffer(IndicatorHandle,2,0,DonLength,BufferDonLower);
