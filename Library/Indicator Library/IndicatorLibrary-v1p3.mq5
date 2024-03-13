@@ -47,7 +47,7 @@
 //|   Lwma_A_Period - Trigger, Filter - [A,B]                        |
 //|   Frama_A_Period - Trigger, Filter - [A,B]                       |
 //|---MOMENTUM INDICATORS                                            |
-//|   Rsi_A_Period - Filter - [A,B]                                  |
+//|   Rsi_A_Period_UpperThreshold_LowerThreshold - Filter - [A,B]    |
 //|---VOLATILITY INDICATORS                                          |
 //|   Bb_A_Period_SD_NoCloses - Trigger - [A,B]                      |
 //|   Atr_A_Period - NA - [A]                                        |
@@ -165,7 +165,7 @@ int GetIndicatorHandle(string Indicator, string CurrentSymbol, ENUM_TIMEFRAMES C
 
 //---MOMENTUM INDICATORS
    //RSI Handle
-   if(IndicatorArray[0] == "RSI")
+   if(IndicatorArray[0] == "Rsi")
    {
       //Get indicator handle
       Handle = iRSI(CurrentSymbol,CurrentPeriod,StringToInteger(IndicatorArray[2]),PRICE_CLOSE);
